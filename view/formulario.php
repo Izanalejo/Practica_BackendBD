@@ -30,7 +30,5 @@ try {
         <button type="submit" href="index.php?action=registro">Registrar</button>
     </form>
 
-    
-    <a  href="index.php?action=listar">Listar</a>
 </body>
 </html>
