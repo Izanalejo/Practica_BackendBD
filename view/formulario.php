@@ -1,6 +1,5 @@
 <?php
-
-
+require_once 'config/Database.php';
 
 
 ?>
@@ -13,13 +12,25 @@
     <title>Formulario de registro </title>
 </head>
 <body>
+
+<?php
+
+try {
+    $db = Database::conectar();
+    echo "Conectado a Base de Datos con exito!";
+} catch (exception $e) {
+    echo "Error en conexion con Base de Datos.";
+}
+?>
     <form method="post">
         <h1>Formulario de Registro</h1>
 
         <label>Username: </label>
         <input type="text" name="username">
+        <button type="submit" href="index.php?action=registro">Registrar</button>
     </form>
 
-    <button type="submit" name="btnForm">Registrar</button>
+    
+    <a  href="index.php?action=listar">Listar</a>
 </body>
 </html>
