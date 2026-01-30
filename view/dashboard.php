@@ -7,47 +7,72 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Streamers</title>
-   
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS personalizado -->
 </head>
 <body>
-    <h1>Lista de Streamers</h1>
-    
-    <?php if (isset($_SESSION['mensaje'])): ?>
-        <div class="mensaje exito"><?= htmlspecialchars($_SESSION['mensaje']) ?></div>
-        <?php unset($_SESSION['mensaje']); ?>
-    <?php endif; ?>
-    
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="mensaje error"><?= htmlspecialchars($_SESSION['error']) ?></div>
-        <?php unset($_SESSION['error']); ?>
-    <?php endif; ?>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (empty($content)): ?>
-                <tr>
-                    <td colspan="5" style="text-align: center; padding: 20px;">
-                        No hay productos registrados
-                    </td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($content as $p): ?>
-                <tr>
-                    <td><?= htmlspecialchars($p['id']) ?></td>
-                    <td><?= htmlspecialchars($p['username']) ?></td>
-                    <td><img src="img/avatar.png"></td>
-                    
-                </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </tbody>
-    </table>
+    <div class="container">
+        <h1 style="margin-top: 5rem;">Lista de Streamers</h1>
+        
+        <?php if (isset($_SESSION['mensaje'])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill"></i> <?= htmlspecialchars($_SESSION['mensaje']) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['mensaje']); ?>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i> <?= htmlspecialchars($_SESSION['error']) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+        
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th><i class="bi bi-hash"></i> ID</th>
+                                <th><i class="bi bi-person-circle"></i> Username</th>
+                                <th><i class="bi bi-image"></i> Avatar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($content)): ?>
+                                <tr>
+                                    <td colspan="3" class="text-center py-5">
+                                        <i class="bi bi-inbox" style="font-size: 3rem; color: #ccc;"></i>
+                                        <p class="mt-3 mb-0">No hay streamers registrados</p>
+                                    </td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($content as $p): ?>
+                                <tr>
+                                    <td>
+                                        <span class="badge-id"><?= htmlspecialchars($p['id']) ?></span>
+                                    </td>
+                                    <td>
+                                        <strong><?= htmlspecialchars($p['username']) ?></strong>
+                                    </td>
+                                    <td>
+                                        <img style="height: 100px;" src="<?=htmlspecialchars($p['avatar']) ?>" alt="Avatar de <?= htmlspecialchars($p['nombre_real']) ?>">
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
