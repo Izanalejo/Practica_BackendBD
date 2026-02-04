@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require_once 'controller/UserController.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +14,55 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <h1 style="margin-top: 5rem;">Lista de Streamers</h1>
+
+        <h1>Bienvenido <?= $_SESSION['usuario'] ?></h1>
+        <h2 style="margin-top: 5rem;">Destacado</h2>
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th><i class="bi bi-image"></i> Avatar</th>
+                                <th><i class="bi bi-person-circle"></i> Username</th>
+                                <th><i class="bi bi-hash"></i> Nombre Real</th>
+                                <th><i class="bi bi-hash"></i> Followers</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($content)): ?>
+                                <tr>
+                                    <td colspan="3" class="text-center py-5">
+                                        <i class="bi bi-inbox" style="font-size: 3rem; color: #ccc;"></i>
+                                        <p class="mt-3 mb-0">No hay streamers registrados</p>
+                                    </td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($destacado as $d): ?>
+                                <tr>
+                                    <td>
+                                        <img style="height: 100px;" src="<?=htmlspecialchars($d['avatar']) ?>" alt="Avatar de <?= htmlspecialchars($d['nombre_real']) ?>">
+                                    </td>
+                                    <td>
+                                        <strong><?= htmlspecialchars($d['username']) ?></strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge-id"><?= htmlspecialchars($d['nombre_real']) ?></span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-id"><?= htmlspecialchars($d['followers']) ?></span>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 5rem;">Lista de Streamers</h2>
         
         <?php if (isset($_SESSION['mensaje'])): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -37,9 +86,11 @@ session_start();
                     <table class="table table-hover mb-0">
                         <thead>
                             <tr>
-                                <th><i class="bi bi-hash"></i> ID</th>
-                                <th><i class="bi bi-person-circle"></i> Username</th>
                                 <th><i class="bi bi-image"></i> Avatar</th>
+                                <th><i class="bi bi-person-circle"></i> Username</th>
+                                <th><i class="bi bi-hash"></i> Nombre Real</th>
+                                <th><i class="bi bi-hash"></i> Followers</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -54,13 +105,19 @@ session_start();
                                 <?php foreach ($content as $p): ?>
                                 <tr>
                                     <td>
-                                        <span class="badge-id"><?= htmlspecialchars($p['id']) ?></span>
+                                        <img style="height: 100px;" src="<?=htmlspecialchars($p['avatar']) ?>" alt="Avatar de <?= htmlspecialchars($p['nombre_real']) ?>">
                                     </td>
                                     <td>
                                         <strong><?= htmlspecialchars($p['username']) ?></strong>
                                     </td>
                                     <td>
-                                        <img style="height: 100px;" src="<?=htmlspecialchars($p['avatar']) ?>" alt="Avatar de <?= htmlspecialchars($p['nombre_real']) ?>">
+                                        <span class="badge-id"><?= htmlspecialchars($p['nombre_real']) ?></span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-id"><?= htmlspecialchars($p['followers']) ?></span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning" type="submit" name="destacar">Cambiar destacado</button>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>

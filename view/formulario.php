@@ -33,7 +33,7 @@ require_once 'config/Database.php';
                             <form method="post" action="index.php?action=registro">
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username:</label>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario" required>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario" required pattern="[A-Za-z0-9_]{3,20}">
                                 </div>
                                 
                                 <div class="d-grid">

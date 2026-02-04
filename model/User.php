@@ -9,7 +9,7 @@ class User{
     public function añadir(string $username, string
      $ultima_visita, int $total_visitas){
         $stmt = $this->db->prepare("INSERT INTO usuarios (username, ultima_visita, total_visitas) VALUES (?, ?, ?)");
-                $stmt->execute([$username,$ultima_visita,$total_visitas]);
+        $stmt->execute([$username,$ultima_visita,$total_visitas]);
     }
 
     public function obtenerPorUsername(string $username): ?array {
@@ -17,7 +17,10 @@ class User{
         $stmt->execute([$username]);
         return $stmt->fetch() ?: null;
     }
-
+public function actualizar(string $username, string $ultima_visita){
+    $stmt = $this->db->prepare("UPDATE usuarios SET total_visitas = total_visitas + 1, ultima_visita = ? WHERE username = ?");
+    $stmt->execute([$ultima_visita, $username]);
+}
 
 }
 

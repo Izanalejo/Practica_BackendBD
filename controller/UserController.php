@@ -1,5 +1,4 @@
 <?php
-
 require_once 'model/User.php';
 require_once 'model/Streamers.php';
 require_once 'UserView.php';
@@ -28,19 +27,24 @@ private User $modelo;
         // Verificar que sea una petición POST y que exista el username
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && !empty($_POST['username'])) {
             $username = trim($_POST['username']);
-            
+            $buscaUser = $this->modelo->obtenerPorUsername($username);
+            $_SESSION['usuario'] = $username;
             // Verificar si el usuario ya existe
-            if ($this->modelo->obtenerPorUsername($username) != null) {
+            if ( $buscaUser != null) {
                 // Usuario existe, redirigir al dashboard
+                $this->modelo->actualizar($username, date('Y-m-d H:i:s'));
                 header('Location: index.php?action=dashboard');
                 exit;
             } else {
                 // Usuario no existe, añadirlo
                 $this->modelo->añadir($username, date('Y-m-d H:i:s'), 1);
+                
                 // Redirigir al dashboard después de registrar
                 header('Location: index.php?action=dashboard');
                 exit;
+                
             }
+            
         } else {
             // Si no hay datos POST, mostrar el formulario
             $this->registroform();
@@ -49,6 +53,7 @@ private User $modelo;
 
     public function dashboard(){
         $streamers = $this->modelost->listar();
-        $this->view->display('view/dashboard.php', ['content' => $streamers]);
+        $destacado = $this->modelost->destacado();
+        $this->view->display('view/dashboard.php', ['content' => $streamers, 'destacado' => $destacado]);
     }
 }
