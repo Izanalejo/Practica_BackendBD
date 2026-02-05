@@ -14,7 +14,6 @@ private User $modelo;
     public function __construct(PDO $db)
     {
         $this->modelo = new User($db);
-        $this->modelost = new Streamer($db);
         $this->view = new UserView();
     }
 
@@ -57,14 +56,7 @@ private User $modelo;
         }
     }
 
-    public function dashboard(){
-        $streamers = $this->modelost->listar();
-        $destacado = $this->modelost->destacado();
-        $this->view->display('view/dashboard.php', ['content' => $streamers, 'destacado' => $destacado]);
-        }
-    public function btnDestacar($id){
-        $this->modelost->destacar($id);
-    }
+    
 }
 
 
