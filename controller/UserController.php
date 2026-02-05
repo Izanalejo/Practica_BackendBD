@@ -5,9 +5,8 @@ require_once 'UserView.php';
 require_once 'config/Database.php';
 class UserController
 {
-private User $modelo;
+    private User $modelo;
     private UserView $view;
-    private Streamer $modelost;
 
 
 
@@ -15,6 +14,18 @@ private User $modelo;
     {
         $this->modelo = new User($db);
         $this->view = new UserView();
+    }
+    public function processRequest(){
+        $action = $_GET['action'] ?? 'registro';
+
+        switch ($action) {
+            case 'registro':
+                $this->registro();
+                break;
+            default:
+                $this->registroform();
+                break;
+        }
     }
 
   public function registroform(){
@@ -38,14 +49,14 @@ private User $modelo;
             if ( $buscaUser != null) {
                 // Usuario existe, redirigir al dashboard
                 $this->modelo->actualizar($username, date('Y-m-d H:i:s'));
-                header('Location: index.php?action=dashboard');
+                header('Location: index.php?action=streamer');
                 exit;
             } else {
                 // Usuario no existe, añadirlo
                 $this->modelo->añadir($username, date('Y-m-d H:i:s'), 1);
                 
                 // Redirigir al dashboard después de registrar
-                header('Location: index.php?action=dashboard');
+                header('Location: index.php?action=streamer');
                 exit;
                 
             }

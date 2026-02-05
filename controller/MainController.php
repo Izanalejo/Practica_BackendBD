@@ -1,33 +1,40 @@
-<?php 
+<?php
 require_once 'config/Database.php';
 require_once 'controller/UserController.php';
 require_once 'controller/StreamerController.php';
-class MainController{
-    
-    public function __construct() {}
+class MainController
+{
+
+    public function __construct()
+    {
+    }
 
 
-    public function processRequest(){
+    public function processRequest()
+    {
         $db = Database::conectar();
-        $controllerUser = new UserController($db);
-        $controllerStreamer = new StreamerController($db);
+        /* 
+         $controllerStreamer = new StreamerController($db); */
 
         $action = $_GET['action'] ?? 'registro';
-        $username = $_POST['username'] ?? null;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['destacar'])) {
-            $controllerStreamer->btnDestacar($_POST['destacar']);
-            header("Location: index.php?action=dashboard");
-            exit;
-        };
+        switch ($action) {
 
-        match ($action) {
-            'registro' => $controllerUser->registro(),
-            'dashboard'   => $controllerStreamer->dashboard(),
-            /*'guardar'  => $controller->procesar(),
-            'eliminar' => $controller->borrar($id), */
-            default => $controllerUser->registroform(),
-        };
+            case 'user':
+                $controllerUser = new UserController($db);
+                $controllerUser->processRequest();
+                break;
+            case 'streamer':
+                $controllerStreamer = new StreamerController($db);
+                $controllerStreamer->processRequest();
+                break;
+
+            default: //Registrar Usuario
+                $controllerUser = new UserController($db);
+                $controllerUser->processRequest();
+                break;
+        }
+
     }
 }
 
