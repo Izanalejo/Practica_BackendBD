@@ -33,7 +33,7 @@ require_once 'config/Database.php';
                             <form method="post" action="index.php?action=registro">
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username:</label>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario" required pattern="[A-Za-z0-9_]{3,20}">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario" >
                                 </div>
                                 
                                 <div class="d-grid">
@@ -48,6 +48,13 @@ require_once 'config/Database.php';
             </div>
         </div>
     </div>
-
+            <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show " role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i> <?= htmlspecialchars($_SESSION['error']) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

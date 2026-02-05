@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 require_once 'controller/UserController.php';
 ?>
 <!DOCTYPE html>
@@ -72,13 +72,7 @@ require_once 'controller/UserController.php';
             <?php unset($_SESSION['mensaje']); ?>
         <?php endif; ?>
         
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-triangle-fill"></i> <?= htmlspecialchars($_SESSION['error']) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <?php unset($_SESSION['error']); ?>
-        <?php endif; ?>
+
         
         <div class="card">
             <div class="card-body p-0">

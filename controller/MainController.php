@@ -13,8 +13,7 @@ class MainController
     public function processRequest()
     {
         $db = Database::conectar();
-        /* 
-         $controllerStreamer = new StreamerController($db); */
+        /* $controllerStreamer = new StreamerController($db); */
 
         $action = $_GET['action'] ?? 'registro';
 
