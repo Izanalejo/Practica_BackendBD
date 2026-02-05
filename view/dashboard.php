@@ -117,7 +117,9 @@ require_once 'controller/UserController.php';
                                         <span class="badge-id"><?= htmlspecialchars($p['followers']) ?></span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning" type="submit" name="destacar">Cambiar destacado</button>
+                                        <form action="" method="POST">
+                                        <button class="btn btn-warning" type="submit" name="destacar" value="<?= $p['id'] ?>">Cambiar destacado</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>

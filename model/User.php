@@ -22,6 +22,7 @@ public function actualizar(string $username, string $ultima_visita){
     $stmt->execute([$ultima_visita, $username]);
 }
 
+
 }
 
 ?>

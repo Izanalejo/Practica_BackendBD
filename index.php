@@ -11,6 +11,12 @@ $controller = new UserController($db);
 $action = $_GET['action'] ?? 'registro';
 $username = $_POST['username'] ?? null;
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['destacar'])) {
+    $controller->btnDestacar($_POST['destacar']);
+    header("Location: index.php?action=dashboard");
+    exit;
+};
+
 match ($action) {
     'registro' => $controller->registro(),
     'dashboard'   => $controller->dashboard(),
@@ -18,6 +24,7 @@ match ($action) {
     'eliminar' => $controller->borrar($id), */
     default => $controller->registroform(),
 };
+
 
 ?>
 

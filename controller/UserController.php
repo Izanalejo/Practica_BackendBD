@@ -24,11 +24,17 @@ private User $modelo;
   }
 
       public function registro(){
+        //Iniciar sesión si no está iniciada
+        if(session_status() === PHP_SESSION_NONE){
+            session_start();
+        }
         // Verificar que sea una petición POST y que exista el username
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && !empty($_POST['username'])) {
             $username = trim($_POST['username']);
-            $buscaUser = $this->modelo->obtenerPorUsername($username);
+
             $_SESSION['usuario'] = $username;
+            $buscaUser = $this->modelo->obtenerPorUsername($username);
+            
             // Verificar si el usuario ya existe
             if ( $buscaUser != null) {
                 // Usuario existe, redirigir al dashboard
@@ -55,5 +61,10 @@ private User $modelo;
         $streamers = $this->modelost->listar();
         $destacado = $this->modelost->destacado();
         $this->view->display('view/dashboard.php', ['content' => $streamers, 'destacado' => $destacado]);
+        }
+    public function btnDestacar($id){
+        $this->modelost->destacar($id);
     }
 }
+
+
