@@ -38,7 +38,7 @@
                             <?php unset($_SESSION['error']); ?>
                         <?php endif; ?>
 
-                        <form method="POST" action="index.php?action=guardarCategoriasStreamer">
+                        <form method="POST" action="index.php?action=streamer&option=guardarCategoriasStreamer">
                             <input type="hidden" name="streamer_id" value="<?= $streamer['id'] ?>">
 
                             <div class="mb-3">

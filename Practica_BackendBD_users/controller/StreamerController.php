@@ -11,48 +11,26 @@ class StreamerController
     }
 
     public function processRequest()
-    {
-        $action = $_GET['action'] ?? 'dashboard';
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['destacar'])) {
+{
+    $option = $_GET['option'] ?? 'dashboard';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['destacar'])) {
             $this->btnDestacar($_POST['destacar']);
             header("Location: index.php?action=streamer");
             exit;
         }
 
-        switch ($action) {
-            case 'dashboard':
-                $this->dashboard();
-                break;
-            case 'listaStreamers':
-                $this->listaStreamers();
-                break;
-            case 'editarCategoriasStreamer':
-                $this->editarCategoriasStreamer();
-                break;
-            case 'guardarCategoriasStreamer':
-                $this->guardarCategoriasStreamer();
-                break;
-            case 'nuevoStreamer':
-                $this->nuevoStreamer();
-                break;
-            case 'crearStreamer':
-                $this->crearStreamer();
-                break;
-            case 'editarStreamer':
-                $this->editarStreamer();
-                break;
-            case 'actualizarStreamer':
-                $this->actualizarStreamer();
-                break;
-            case 'eliminarStreamer':
-                $this->eliminarStreamer();
-                break;
-            default:
-                $this->dashboard();
-                break;
-        }
+    switch ($option) {
+        case 'listaStreamers':             $this->listaStreamers();            break;
+        case 'nuevoStreamer':               $this->nuevoStreamer();              break;
+        case 'crearStreamer':               $this->crearStreamer();              break;
+        case 'editarStreamer':              $this->editarStreamer();             break;
+        case 'actualizarStreamer':          $this->actualizarStreamer();         break;
+        case 'eliminarStreamer':            $this->eliminarStreamer();           break;
+        case 'editarCategoriasStreamer':    $this->editarCategoriasStreamer();   break;
+        case 'guardarCategoriasStreamer':   $this->guardarCategoriasStreamer();  break;
+        default:                           $this->dashboard();                  break;
     }
-
+}
     public function dashboard()
     {
         $streamers = $this->modelost->listar();
@@ -118,19 +96,19 @@ class StreamerController
 
             if (empty($username)) {
                 $_SESSION['error'] = "El username no puede estar vacío.";
-                header("Location: index.php?action=nuevoStreamer");
+                header("Location: index.php?action=streamer&option=nuevoStreamer");
                 exit;
             }
 
             if ($this->modelost->existeNombre($username)) {
                 $_SESSION['error'] = "Ya existe un streamer con ese username.";
-                header("Location: index.php?action=nuevoStreamer");
+                header("Location: index.php?action=streamer&option=nuevoStreamer");
                 exit;
             }
 
             $this->modelost->añadir($username, $nombre_real, $followers, $destacado);
             $_SESSION['mensaje'] = "Streamer creado correctamente.";
-            header("Location: index.php?action=listaStreamers");
+            header("Location: index.php?action=streamer&option=listaStreamers");
             exit;
         }
 
@@ -176,24 +154,24 @@ class StreamerController
 
             $this->modelost->actualizar($id, $username, $nombre_real, $followers, $destacado);
             $_SESSION['mensaje'] = "Streamer actualizado correctamente.";
-            header("Location: index.php?action=listaStreamers");
+            header("Location: index.php?action=streamer&option=listaStreamers");
             exit;
         }
 
-        header("Location: index.php?action=listaStreamers");
+        header("Location: index.php?action=streamer&option=listaStreamers");
         exit;
     }
     public function eliminarStreamer(){
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
         if (!$id) {
-            header("Location: index.php?action=listaStreamers");
+            header("Location: index.php?action=streamer&option=listaStreamers");
             exit;
         }
 
         $this->modelost->eliminar($id);
         $_SESSION['mensaje'] = "Streamer eliminado correctamente.";
-        header("Location: index.php?action=listaStreamers");
+        header("Location: index.php?action=streamer&option=listaStreamers");
 
         exit;
     }

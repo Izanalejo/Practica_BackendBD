@@ -194,7 +194,7 @@ require_once 'controller/UserController.php';
                 </td>
                 <td>
                     <div class="text-center mb-4">
-                        <a href="index.php?action=listaStreamers" class="btn btn-primary">Gestionar Streamers</a>
+                        <a href="index.php?action=streamer&option=listaStreamers" class="btn btn-primary">Gestionar Streamers</a>
                     </div>
                 </td>
             </tr>
@@ -258,7 +258,7 @@ require_once 'controller/UserController.php';
                                                     <i class="bi bi-star-fill"></i>
                                                 </button>
                                             </form>
-                                            <a href="index.php?action=editarCategoriasStreamer&id=<?= $p['id'] ?>" class="btn btn-info">
+                                            <a href="index.php?action=streamer&option=editarCategoriasStreamer&id=<?= $p['id'] ?>" class="btn btn-info">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
                                         </td>

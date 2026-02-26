@@ -2,7 +2,7 @@
 class Database {
     public static function conectar(): PDO {
         try {
-            $dsn = "mysql:host=localhost;dbname=practicaevaluable3;charset=utf8mb4";
+            $dsn = "mysql:host=localhost;dbname=practicaevaluable2;charset=utf8mb4";
             return new PDO($dsn, "root", "", [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

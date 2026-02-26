@@ -70,7 +70,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Lista de Streamers</h2>
-            <a href="index.php?action=nuevoStreamer" class="btn btn-primary">+ Nuevo Streamer</a>
+            <a href="index.php?action=streamer&option=nuevoStreamer" class="btn btn-primary">+ Nuevo Streamer</a>
         </div>
 
         <div class="card">
@@ -99,10 +99,10 @@
                                         <td><?= htmlspecialchars($st['nombre_real']) ?></td>
                                         <td><?= htmlspecialchars($st['followers']) ?></td>
                                         <td>
-                                            <a href="index.php?action=editarStreamer&id=<?= $st['id'] ?>" class="btn btn-sm btn-warning">
+                                            <a href="index.php?action=streamer&option=editarStreamer&id=<?= $st['id'] ?>" class="btn btn-sm btn-warning">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <a href="index.php?action=eliminarStreamer&id=<?= $st['id'] ?>" class="btn btn-sm btn-danger"
+                                            <a href="index.php?action=streamer&option=eliminarStreamer&id=<?= $st['id'] ?>" class="btn btn-sm btn-danger"
                                                 onclick="return confirm('¿Seguro que quieres eliminar este streamer?')">
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>

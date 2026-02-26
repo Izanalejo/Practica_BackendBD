@@ -71,7 +71,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Lista de Categorías</h2>
-            <a href="index.php?action=nuevaCategoria" class="btn btn-primary">+ Nueva Categoría</a>
+            <a href="index.php?action=categoria&option=nuevaCategoria" class="btn btn-primary">+ Nueva Categoría</a>
         </div>
 
         <div class="card">
@@ -98,10 +98,10 @@
                                         <td><strong><?= htmlspecialchars($cat['nombre']) ?></strong></td>
                                         <td><?= htmlspecialchars($cat['descripcion']) ?></td>
                                         <td>
-                                            <a href="index.php?action=editarCategoria&id=<?= $cat['id'] ?>" class="btn btn-sm btn-warning">
+                                            <a href="index.php?action=categoria&option=editarCategoria&id=<?= $cat['id'] ?>" class="btn btn-sm btn-warning">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <a href="index.php?action=eliminarCategoria&id=<?= $cat['id'] ?>" class="btn btn-sm btn-danger"
+                                            <a href="index.php?action=categoria&option=eliminarCategoria&id=<?= $cat['id'] ?>" class="btn btn-sm btn-danger"
                                                 onclick="return confirm('¿Seguro que quieres eliminar esta categoría?')">
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>

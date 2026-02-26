@@ -28,7 +28,7 @@
                         <?php unset($_SESSION['error']); ?>
                     <?php endif; ?>
 
-                    <form method="POST" action="index.php?action=<?= isset($categoria) ? 'actualizarCategoria' : 'crearCategoria' ?>">
+                    <form method="POST" action="index.php?action=categoria&option=<?= isset($categoria) ? 'actualizarCategoria' : 'crearCategoria' ?>">
                         
                         <?php if (isset($categoria)): ?>
                             <input type="hidden" name="id" value="<?= $categoria['id'] ?>">
@@ -51,7 +51,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <?= isset($categoria) ? 'Guardar cambios' : 'Crear categoría' ?>
                             </button>
-                            <a href="index.php?action=listaCategorias" class="btn btn-secondary">Cancelar</a>
+                            <a href="index.php?action=categoria&option=listaCategorias" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>
                 </div>

@@ -17,34 +17,20 @@ class CategoriaController
         $this->view = new UserView();
     }
 
-    public function processRequest()
-    {
-        $action = $_GET['action'] ?? 'listaCategorias';
+  public function processRequest()
+{
+    $option = $_GET['option'] ?? 'listaCategorias';
 
-        switch ($action) {
-            case 'listaCategorias':
-                $this->listaCategorias();
-                break;
-            case 'nuevaCategoria':
-                $this->nuevaCategoria();
-                break;
-            case 'crearCategoria':
-                $this->crearCategoria();
-                break;
-            case 'editarCategoria':
-                $this->editarCategoria();
-                break;
-            case 'actualizarCategoria':
-                $this->actualizarCategoria();
-                break;
-            case 'eliminarCategoria':
-                $this->eliminarCategoria();
-                break;
-            default:
-                $this->listaCategorias();
-                break;
-        }
+    switch ($option) {
+        case 'listaCategorias':    $this->listaCategorias();   break;
+        case 'nuevaCategoria':     $this->nuevaCategoria();    break;
+        case 'crearCategoria':     $this->crearCategoria();    break;
+        case 'editarCategoria':    $this->editarCategoria();   break;
+        case 'actualizarCategoria': $this->actualizarCategoria(); break;
+        case 'eliminarCategoria':  $this->eliminarCategoria(); break;
+        default:                   $this->listaCategorias();   break;
     }
+}
 
     public function listaCategorias()
     {
@@ -77,7 +63,7 @@ class CategoriaController
 
             $this->modelocat->añadir($nombre, $descripcion);
             $_SESSION['mensaje'] = "Categoría creada correctamente.";
-            header("Location: index.php?action=listaCategorias");
+            header("Location: index.php?action=categoria&option=listaCategorias");
             exit;
         }
 
@@ -89,7 +75,7 @@ class CategoriaController
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
         if (!$id) {
-            header("Location: index.php?action=listaCategorias");
+            header("Location: index.php?action=categoria&option=listaCategorias");
             exit;
         }
 
@@ -97,7 +83,7 @@ class CategoriaController
 
         if (!$categoria) {
             $_SESSION['error'] = "Categoría no encontrada.";
-            header("Location: index.php?action=listaCategorias");
+            header("Location: index.php?action=categoria&option=listaCategorias");
             exit;
         }
 
@@ -113,23 +99,23 @@ class CategoriaController
 
             if (empty($nombre)) {
                 $_SESSION['error'] = "El nombre no puede estar vacío.";
-                header("Location: index.php?action=editarCategoria&id=$id");
+                header("Location: index.php?action=categoria&option=editarCategoria&id=$id");
                 exit;
             }
 
             if ($this->modelocat->existeNombre($nombre, $id)) {
                 $_SESSION['error'] = "Ya existe otra categoría con ese nombre.";
-                header("Location: index.php?action=editarCategoria&id=$id");
+                header("Location: index.php?action=categoria&option=editarCategoria&id=$id");
                 exit;
             }
 
             $this->modelocat->actualizar($id, $nombre, $descripcion);
             $_SESSION['mensaje'] = "Categoría actualizada correctamente.";
-            header("Location: index.php?action=listaCategorias");
+            header("Location: index.php?action=categoria&option=listaCategorias");
             exit;
         }
 
-        header("Location: index.php?action=listaCategorias");
+        header("Location: index.php?action=categoria&option=listaCategorias");
         exit;
     }
 
@@ -138,19 +124,19 @@ class CategoriaController
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
         if (!$id) {
-            header("Location: index.php?action=listaCategorias");
+            header("Location: index.php?action=categoria&option=listaCategorias");
             exit;
         }
 
         if ($this->modelocat->tieneStreamers($id)) {
             $_SESSION['error'] = "No se puede eliminar una categoría que tiene streamers asignados.";
-            header("Location: index.php?action=listaCategorias");
+            header("Location: index.php?action=categoria&option=listaCategorias");
             exit;
         }
 
         $this->modelocat->eliminar($id);
         $_SESSION['mensaje'] = "Categoría eliminada correctamente.";
-        header("Location: index.php?action=listaCategorias");
+        header("Location: index.php?action=categoria&option=listaCategorias");
 
         exit;
     }

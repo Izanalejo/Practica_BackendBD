@@ -28,7 +28,7 @@
                         <?php unset($_SESSION['error']); ?>
                     <?php endif; ?>
 
-                    <form method="POST" action="index.php?action=<?= isset($streamer) ? 'actualizarStreamer' : 'crearStreamer' ?>">
+                    <form method="POST" action="index.php?action=streamer&option=<?= isset($streamer) ? 'actualizarStreamer' : 'crearStreamer' ?>">
                         
                         <?php if (isset($streamer)): ?>
                             <input type="hidden" name="id" value="<?= $streamer['id'] ?>">
@@ -50,13 +50,18 @@
                             <input type="number" class="form-control" id="followers" name="followers"
                                 value="<?= isset($streamer) ? htmlspecialchars($streamer['followers']) : '' ?>">
                         </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Destacado:</label>
+                            <input type="number" class="form-control" id="followers" name="destacado"
+                                value="<?= isset($streamer) ? htmlspecialchars($streamer['destacado']) : '' ?>">
+                        </div>
                         
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">
                                 <?= isset($streamer) ? 'Guardar cambios' : 'Crear streamer' ?>
                             </button>
-                            <a href="index.php?action=listaStreamers" class="btn btn-secondary">Cancelar</a>
+                            <a href="index.php?action=streamer&option=listaStreamers" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>
                 </div>
